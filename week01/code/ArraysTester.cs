@@ -39,7 +39,23 @@ public static class ArraysTester {
         // step by step before you write the code. The plan should be clear enough that it could
         // be implemented by another person.
 
-        return new double[0]; // replace this return statement with your own
+        // Create an empty array to hold the multipes
+        double[] array = {};
+
+        // Loop through all of the integers in length
+        for (int i = 1; i < length; i++) {
+            // for each integer multiply the integer by the number
+            double multiple = i * number;
+
+            // resize the array
+            Array.Resize(ref array, array.Length + 1);
+
+            // store the new number in the array
+            array[array.Length-1] = multiple;
+        }
+
+        // return the array
+        return array; // replace this return statement with your own
     }
     
     /// <summary>
@@ -57,5 +73,25 @@ public static class ArraysTester {
         // step by step before you write the code. The plan should be clear enough that it could
         // be implemented by another person.
 
+        // Get the rotation amount relative to the array
+        amount = amount % data.Count;
+
+        // Create a temporary array
+        int[] tempArray = new int[data.Count];
+
+        // Copy elements to temp array
+        for (int i=0; i < amount; i++) {
+            tempArray[i] = data[data.Count - amount + i];
+        }        
+
+        // Perform the rotation
+        for (int i = amount; i < data.Count; i++) {
+            tempArray[i] = data[i - amount];
+        }
+
+        // Copy elements back to the original list
+        for (int i=0; i < data.Count; i++) {
+            data[i] = tempArray[i];
+        }
     }
 }

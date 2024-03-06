@@ -36,6 +36,7 @@ public static class Search {
         return sw.Elapsed.TotalMilliseconds / times;
     }
 
+    // o(n)
     /// <summary>
     /// Search for 'target' in the list 'data'. When its found (or not found) the variable count which represents
     /// the work done in the function is returned.
@@ -53,6 +54,7 @@ public static class Search {
         return count; // Didn't find it
     }
 
+    // O (log(n))
     /// <summary>
     /// Search for 'target' in the list 'data'. When its found (or not found) the variable count which represents
     /// the work done in the function is returned.

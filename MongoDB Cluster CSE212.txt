@@ -1,0 +1,9 @@
+MongoDB Cluster CSE212
+Username: wjordankeel
+Password: 5ef1AB5FluaaoSBe
+
+MongoDB Cluster CSE341
+Username: wjordankeel
+Password: 1hhNMdLpKvUUaiIw
+
+mongodb+srv://wjordankeel:1hhNMdLpKvUUaiIw@cse341.wk8djdd.mongodb.net/?retryWrites=true&w=majority&appName=CSE341
