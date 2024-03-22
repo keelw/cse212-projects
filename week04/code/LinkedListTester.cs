@@ -1,5 +1,7 @@
-public static class LinkedListTester {
-    public static void Run() {
+public static class LinkedListTester
+{
+    public static void Run()
+    {
         // Sample Test Cases (may not be comprehensive) 
         Console.WriteLine("\n=========== PROBLEM 1 TESTS ===========");
         var ll = new LinkedList();
@@ -27,12 +29,21 @@ public static class LinkedListTester {
         Console.WriteLine(ll.ToString()); // <LinkedList>{5, 4, 3, 2, 2, 2, 1}
 
         var ll3 = new LinkedList();
-        ll3.RemoveTail();
-        Console.WriteLine(ll3.ToString()); // <LinkedList>{}
+        ll3.InsertTail(10);
+        ll3.InsertHead(9);
+        ll3.InsertHead(8);
+        ll3.InsertHead(7);
+        ll3.InsertHead(6);
+        ll3.InsertHead(5);
+        ll3.InsertHead(4);
+        ll3.InsertHead(3);
         ll3.InsertHead(2);
+        ll3.InsertHead(1);
         ll3.RemoveTail();
-        Console.WriteLine(ll3.ToString()); // <LinkedList>{}
-        Console.WriteLine(ll3.HeadAndTailAreNull()); // True
+        Console.WriteLine(ll3.ToString()); // <LinkedList>{1, 2, 3, 4, 5, 6, 7, 8, 9}
+        ll3.RemoveTail();
+        Console.WriteLine(ll3.ToString()); // <LinkedList>{1, 2, 3, 4, 5, 6, 7, 8}
+        Console.WriteLine(ll3.HeadAndTailAreNull()); // False
 
         Console.WriteLine("\n=========== PROBLEM 3 TESTS ===========");
         ll.InsertAfter(3, 35);
@@ -54,12 +65,21 @@ public static class LinkedListTester {
         Console.WriteLine(ll.ToString()); // <LinkedList>{4, 35, 2, 2}
 
         var ll4 = new LinkedList();
-        ll4.Remove(0);
-        Console.WriteLine(ll4.ToString()); // <LinkedList>{}
+        ll4.InsertTail(10);
+        ll4.InsertHead(9);
+        ll4.InsertHead(8);
+        ll4.InsertHead(7);
+        ll4.InsertHead(6);
+        ll4.InsertHead(5);
+        ll4.InsertHead(4);
+        ll4.InsertHead(3);
         ll4.InsertHead(2);
+        ll4.InsertHead(1);
+        ll4.Remove(6);
+        Console.WriteLine(ll4.ToString()); // <LinkedList>{1, 2, 3, 4, 5, 7, 8, 9, 10}
         ll4.Remove(2);
-        Console.WriteLine(ll4.ToString()); // <LinkedList>{}
-        Console.WriteLine(ll4.HeadAndTailAreNull()); // True
+        Console.WriteLine(ll4.ToString()); // <LinkedList>{1, 3, 4, 5, 7, 8, 9, 10}
+        Console.WriteLine(ll4.HeadAndTailAreNull()); // False
 
         Console.WriteLine("\n=========== PROBLEM 4 TESTS ===========");
         ll.Replace(2, 10);
@@ -68,9 +88,17 @@ public static class LinkedListTester {
         Console.WriteLine(ll.ToString()); // <LinkedList>{4, 35, 10, 10}
         ll.Replace(4, 100);
         Console.WriteLine(ll.ToString()); // <LinkedList>{100, 35, 10, 10}
+        ll.Replace(2, 10000);
+        Console.WriteLine(ll.ToString()); // <LinkedList>{100, 35, 10, 10}
+        ll.Replace(10, 1);
+        Console.WriteLine(ll.ToString()); // <LinkedList>{100, 35, 1, 1}
 
 
         Console.WriteLine("\n=========== PROBLEM 5 TESTS ===========");
-        Console.WriteLine(ll.Reverse().AsString()); // <IEnumerable>[10, 10, 35, 100}
+        Console.WriteLine(ll.Reverse().AsString()); // <IEnumerable>{1, 1, 35, 100}
+        Console.WriteLine(ll4.Reverse().AsString());// <IEnumerable>{10, 9, 8, 7, 5, 4, 3, 1}
+        Console.WriteLine(ll3.Reverse().AsString());// <IEnumerable>{8, 7, 6, 5, 4, 3, 2, 1}
+        Console.WriteLine(ll2.Reverse().AsString());// <IEnumerable>{1}
+
     }
 }
