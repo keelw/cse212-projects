@@ -1,7 +1,9 @@
 using System.Text.Json;
 
-public static class SetsAndMapsTester {
-    public static void Run() {
+public static class SetsAndMapsTester
+{
+    public static void Run()
+    {
         // Problem 1: Find Pairs with Sets
         Console.WriteLine("\n=========== Finding Pairs TESTS ===========");
         DisplayPairs(new[] { "am", "at", "ma", "if", "fi" });
@@ -35,6 +37,30 @@ public static class SetsAndMapsTester {
         // [Masters, 1723], [9th, 514], [Some-college, 7291], [Assoc-acdm, 1067],
         // [Assoc-voc, 1382], [7th-8th, 646], [Doctorate, 413], [Prof-school, 576],
         // [5th-6th, 333], [10th, 933], [1st-4th, 168], [Preschool, 51], [12th, 433]}
+
+        var summary = SummarizeDegrees("census.txt");
+        static Dictionary<string, int> SummarizeDegrees(string filename)
+        {
+            string relativePath = @"..\..\..\census.txt";
+            var degrees = new Dictionary<string, int>();
+            foreach (var line in File.ReadLines(relativePath))
+            {
+                var fields = line.Split(",");
+                if (fields.Length >= 4)
+                {
+                    string degree = fields[3].Trim();
+                    if (degrees.ContainsKey(degree))
+                    {
+                        degrees[degree]++;
+                    }
+                    else
+                    {
+                        degrees[degree] = 1;
+                    }
+                }
+            }
+            return degrees;
+        }
 
         // Problem 3: Anagrams
         // Sample Test Cases (may not be comprehensive) 
@@ -107,10 +133,34 @@ public static class SetsAndMapsTester {
     /// that there were no duplicates) and therefore should not be displayed.
     /// </summary>
     /// <param name="words">An array of 2-character words (lowercase, no duplicates)</param>
-    private static void DisplayPairs(string[] words) {
+    private static void DisplayPairs(string[] words)
+    {
         // To display the pair correctly use something like:
         // Console.WriteLine($"{word} & {pair}");
         // Each pair of words should displayed on its own line.
+
+        HashSet<string> seen = new HashSet<string>();
+
+        foreach (string word in words)
+        {
+            string reversed = ReverseWord(word);
+
+            if (seen.Contains(reversed))
+            {
+                Console.WriteLine($"{word} & {reversed}");
+            }
+            else
+            {
+                seen.Add(word);
+            }
+        }
+    }
+
+    static string ReverseWord(string word)
+    {
+        char[] charArray = word.ToCharArray();
+        Array.Reverse(charArray);
+        return new string(charArray);
     }
 
     /// <summary>
@@ -127,9 +177,11 @@ public static class SetsAndMapsTester {
     /// #############
     /// # Problem 2 #
     /// #############
-    private static Dictionary<string, int> SummarizeDegrees(string filename) {
+    private static Dictionary<string, int> SummarizeDegrees(string filename)
+    {
         var degrees = new Dictionary<string, int>();
-        foreach (var line in File.ReadLines(filename)) {
+        foreach (var line in File.ReadLines(filename))
+        {
             var fields = line.Split(",");
             // Todo Problem 2 - ADD YOUR CODE HERE
         }
@@ -156,15 +208,65 @@ public static class SetsAndMapsTester {
     /// #############
     /// # Problem 3 #
     /// #############
-    private static bool IsAnagram(string word1, string word2) {
+    private static bool IsAnagram(string word1, string word2)
+    {
         // Todo Problem 3 - ADD YOUR CODE HERE
-        return false;
+        // Convert words to lowercase and remove spaces
+        word1 = word1.ToLower().Replace(" ", "");
+        word2 = word2.ToLower().Replace(" ", "");
+
+        // Check word length
+        if (word1.Length != word2.Length)
+        {
+            return false;
+        }
+
+        // Store character frequencies
+        Dictionary<char, int> frenquency1 = new Dictionary<char, int>();
+        Dictionary<char, int> frenquency2 = new Dictionary<char, int>();
+        foreach (char c in word1)
+        {
+            if (frenquency1.ContainsKey(c))
+            {
+                frenquency1[c]++;
+            }
+            else
+            {
+                frenquency1[c] = 1;
+            }
+        }
+        foreach (char c in word2)
+        {
+            if (frenquency2.ContainsKey(c))
+            {
+                frenquency2[c]++;
+            }
+            else
+            {
+                frenquency2[c] = 1;
+            }
+        }
+
+        if (frenquency1.Count != frenquency2.Count)
+        {
+            return false;
+        }
+
+        foreach (var pair in frenquency1)
+        {
+            if (!frenquency2.TryGetValue(pair.Key, out int value) || value != pair.Value)
+            {
+                return false;
+            }
+        }
+        return true;
     }
 
     /// <summary>
     /// Sets up the maze dictionary for problem 4
     /// </summary>
-    private static Dictionary<ValueTuple<int, int>, bool[]> SetupMazeMap() {
+    private static Dictionary<ValueTuple<int, int>, bool[]> SetupMazeMap()
+    {
         Dictionary<ValueTuple<int, int>, bool[]> map = new() {
             { (1, 1), new[] { false, true, false, true } },
             { (1, 2), new[] { false, true, true, false } },
@@ -220,7 +322,8 @@ public static class SetsAndMapsTester {
     /// https://earthquake.usgs.gov/earthquakes/feed/v1.0/geojson.php
     /// 
     /// </summary>
-    private static void EarthquakeDailySummary() {
+    private static void EarthquakeDailySummary()
+    {
         const string uri = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_day.geojson";
         using var client = new HttpClient();
         using var getRequestMessage = new HttpRequestMessage(HttpMethod.Get, uri);
